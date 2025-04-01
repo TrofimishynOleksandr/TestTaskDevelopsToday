@@ -80,37 +80,6 @@ namespace TestAssessmentDevelopsToday.Services.Implementations
             await csv.WriteRecordsAsync(duplicateRecords);
         }
 
-        private DataTable BuildTaxiTripDataTable()
-        {
-            var dataTable = new DataTable();
-            dataTable.Columns.Add("PickupDatetime", typeof(DateTime));
-            dataTable.Columns.Add("DropoffDatetime", typeof(DateTime));
-            dataTable.Columns.Add("PassengerCount", typeof(int));
-            dataTable.Columns.Add("TripDistance", typeof(double));
-            dataTable.Columns.Add("StoreAndFwdFlag", typeof(string));
-            dataTable.Columns.Add("PULocationID", typeof(int));
-            dataTable.Columns.Add("DOLocationID", typeof(int));
-            dataTable.Columns.Add("FareAmount", typeof(decimal));
-            dataTable.Columns.Add("TipAmount", typeof(decimal));
-
-            return dataTable;
-        }
-
-        private void AddToDataTable(DataTable dataTable, TaxiTrip trip)
-        {
-            dataTable.Rows.Add(
-                trip.PickupDatetime,
-                trip.DropoffDatetime,
-                trip.PassengerCount,
-                trip.TripDistance,
-                trip.StoreAndFwdFlag,
-                trip.PULocationID,
-                trip.DOLocationID,
-                trip.FareAmount,
-                trip.TipAmount
-            );
-        }
-
         private TaxiTrip Map(CsvReader csv)
         {
             return new TaxiTrip()
