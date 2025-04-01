@@ -38,10 +38,16 @@ namespace TestAssessmentDevelopsToday
             using var scope = builder.Services.CreateScope();
             var processor = scope.ServiceProvider.GetRequiredService<ITaxiTripCsvProcessor>();
 
-            Console.WriteLine("Enter path for the CSV-file: ");
+            Console.WriteLine("Enter path for the CSV-file or press Enter to use the default (CsvFiles/sample-cab-data.csv): ");
             string filePath = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                filePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "CsvFiles", "sample-cab-data.csv");
+                Console.WriteLine("Using default file...");
+            }
+
+            if (!File.Exists(filePath))
             {
                 Console.WriteLine("File not found");
                 return;
